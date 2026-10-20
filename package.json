@@ -1,6 +1,6 @@
 {
   "name": "drazen-ai",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Set up Drazen inside your AI agent (Claude Code, Codex, Cursor and more) with one command.",
   "type": "module",
   "bin": {
