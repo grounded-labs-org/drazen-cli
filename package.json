@@ -1,0 +1,15 @@
+{
+  "name": "drazen",
+  "version": "0.1.0",
+  "description": "Set up Drazen inside your AI agent (Claude Code, Codex, Cursor and more) with one command.",
+  "type": "module",
+  "bin": { "drazen": "bin/drazen.mjs" },
+  "files": ["bin", "lib", "hook", "skills", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test" },
+  "repository": { "type": "git", "url": "git+https://github.com/grounded-labs-org/drazen-cli.git" },
+  "homepage": "https://drazen.ai",
+  "license": "UNLICENSED",
+  "keywords": ["drazen", "claude-code", "codex", "agent-skills", "instagram", "automation", "comment-to-dm"],
+  "publishConfig": { "access": "public" }
+}
