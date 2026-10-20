@@ -233,6 +233,7 @@ const HELP = `drazen ${packageVersion()} — Drazen inside your AI agent (${API_
 
   npx drazen-ai@latest init     install skills + hooks, start friendly setup
   drazen signup --name "Sam" --email sam@x.com --consent   email a 6-digit code
+  drazen login --email sam@x.com --consent                  same thing, for returning users
   drazen verify --code 123456                              finish sign-in
   drazen pay                 open checkout, wait + verify payment
   drazen connect             open the Instagram consent screen, wait for it
@@ -246,7 +247,7 @@ Docs: https://drazen.ai/connect`;
 
 try {
   if (command === 'init') await cmdInit();
-  else if (command === 'signup') await cmdSignup();
+  else if (command === 'signup' || command === 'login') await cmdSignup();
   else if (command === 'verify') await cmdVerify();
   else if (command === 'pay') await cmdPay();
   else if (command === 'add-account') await cmdAddAccount();

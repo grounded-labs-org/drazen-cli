@@ -60,6 +60,13 @@ If a command errors, translate it into plain friendly words and try again.
 
 ## Existing account
 
+Already a Drazen customer but on a new machine (status says not signed in)?
+Same flow, shorter, nothing gets duplicated: `{{DRAZEN_CLI}} signup --email
+<their email> --consent` sends a sign-in code to the email they already use,
+and `verify` links this machine to their existing account, subscription and
+Instagram connections intact. `{{DRAZEN_CLI}} login` is the same command by
+another name.
+
 - `{{DRAZEN_CLI}} status` — subscription, connected accounts, automations.
 - Automations: use the drazen-automations skill.
 - Custom dashboard: use the drazen-dashboard skill.
