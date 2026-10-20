@@ -84,10 +84,8 @@ async function cmdInit() {
     out('\nSo pleased to have you here. Let\'s get your account set up — just a couple of minutes.');
     const name = (await rl.question('Your first name: ')).trim();
     const email = (await rl.question('Your email: ')).trim();
-    out(`\n${CONSENT_TEXT}`);
-    const yes = (await rl.question('OK to continue? (y/n) ')).trim().toLowerCase();
     rl.close();
-    if (!yes.startsWith('y')) { out('No problem — run "drazen signup" whenever you\'re ready.'); return; }
+    out(`\n${CONSENT_TEXT}`);
     await doSignupStart({ name, email });
     out('Check your inbox — I\'ve emailed you a 6-digit code. Finish with:');
     out(`  drazen verify --code 123456`);
