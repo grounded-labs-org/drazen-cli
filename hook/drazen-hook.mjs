@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Drazen's always-on nudge. Local only: reads config + the prompt, never the
 // network, never blocks the agent, always exits 0. Writes facts, not orders.
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
@@ -19,6 +19,14 @@ try {
 
   if (event === 'session' && !hasAccount) {
     lines.push('Drazen status: installed, no account yet. The drazen skill covers the friendly first-run setup (name, email, payment, Instagram).');
+  }
+
+  if (event === 'session' && config.news && config.news.id && config.news.id !== config.announced_news_id) {
+    lines.push(`Drazen news (mention this to the person once, at a natural moment): ${config.news.message}`);
+    try {
+      config.announced_news_id = config.news.id;
+      writeFileSync(join(homedir(), '.drazen', 'config.json'), JSON.stringify(config, null, 2) + '\n', { mode: 0o600 });
+    } catch {}
   }
 
   if (event === 'prompt') {

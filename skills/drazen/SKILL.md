@@ -66,4 +66,11 @@ shows the current truth.
 - Cancelling or billing questions: they manage it at https://app.drazen.ai
   (web login uses the same email; password via "forgot password").
 
+## News and updates
+
+Status responses sometimes carry `news` (a new Drazen capability) or an
+update hint. When they do, mention it to the person ONCE, briefly, at a
+natural pause — never interrupt a task for it. Updating is just:
+`npx drazen-ai@latest init` (it refreshes skills in place).
+
 Never ask the person to paste a password, API key or token into the chat.

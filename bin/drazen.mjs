@@ -34,12 +34,29 @@ const { values: flags } = parseArgs({
 const out = (s) => process.stdout.write(s + '\n');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+function cacheServerExtras(s) {
+  try {
+    const config = readConfig();
+    let changed = false;
+    if (s.latest_version && s.latest_version !== config.latest_version) { config.latest_version = s.latest_version; changed = true; }
+    if (s.news && s.news.id !== (config.news && config.news.id)) { config.news = s.news; changed = true; }
+    if (!s.news && config.news) { delete config.news; changed = true; }
+    if (changed) writeConfig(config);
+  } catch {}
+}
+
+async function fetchStatus() {
+  const s = await api('/api/cli/status');
+  cacheServerExtras(s);
+  return s;
+}
+
 async function pollStatus(until, { label, timeoutMs = 10 * 60 * 1000 }) {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
     await sleep(5000);
     try {
-      const s = await api('/api/cli/status');
+      const s = await fetchStatus();
       if (until(s)) return s;
       process.stdout.write('.');
     } catch { process.stdout.write('.'); }
@@ -146,7 +163,7 @@ async function cmdPay() {
 }
 
 async function cmdConnect() {
-  const before = await api('/api/cli/status');
+  const before = await fetchStatus();
   const res = await api('/api/cli/connect-link', { method: 'POST' });
   const opened = openUrl(res.url);
   out(opened ? 'Instagram connection opened in your browser — approve it there.' : `Open this in your browser: ${res.url}`);
@@ -164,12 +181,16 @@ async function cmdStatus() {
     out(flags.json ? JSON.stringify(payload) : 'Installed, but not signed in yet. The drazen skill covers setup.');
     return;
   }
-  const s = await api('/api/cli/status');
+  const s = await fetchStatus();
   if (flags.json) { out(JSON.stringify({ ...s, version: packageVersion() })); return; }
   out(`Signed in: ${s.email}${s.name ? ` (${s.name})` : ''}`);
   out(`Subscription: ${s.active ? 'active' : s.sub_status} · paid accounts: ${s.paid_accounts}`);
   out(`Instagram: ${s.accounts.length ? s.accounts.map((a) => '@' + a.username).join(', ') : 'not connected yet'}`);
   out(`Automations: ${s.automations.total} (${s.automations.live} live)`);
+  if (s.news) out(`Drazen news: ${s.news.message}`);
+  if (s.latest_version && s.latest_version !== packageVersion()) {
+    out(`Update available (${packageVersion()} -> ${s.latest_version}): npx drazen-ai@latest init`);
+  }
 }
 
 async function cmdTool() {
