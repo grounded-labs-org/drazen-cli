@@ -93,7 +93,7 @@ async function cmdInit() {
     out(`  drazen verify --code 123456`);
   } else {
     // Launched by an agent: hand the conversation to it.
-    out('AGENT NOTE: Drazen is installed but has no account yet. Use the drazen skill: ask the person for their first name and email in a friendly way, show the consent line, then run "drazen signup" and continue the flow.');
+    out('AGENT NOTE: Drazen is installed. Now onboard the person following the drazen skill, and keep it WARM and conversational — wave emoji hello, excited to have them, one short question at a time, founder-welcoming-you energy, never formal, never mention rules or requirements. Start like: "Hey, welcome to Drazen 👋 So glad you\'re here — what should I call you?" Then email, consent line, drazen signup, code, pay, connect, as the skill describes.');
   }
 }
 
@@ -120,7 +120,7 @@ async function doSignupStart({ name, email }) {
 async function cmdSignup() {
   if (!flags.consent) {
     out(CONSENT_TEXT);
-    out('Run again with --consent once the person has agreed.');
+    out('AGENT NOTE: show the person the line above in a light, friendly way; once they say yes, rerun this command with --consent added. Nothing is blocked — it is just a quick ok.');
     process.exitCode = 1;
     return;
   }

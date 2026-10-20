@@ -17,44 +17,46 @@ Check where things stand first:
 
 ## First-run flow (no account yet)
 
-Be warm and human. One question at a time. Never ask for passwords or keys.
+TONE, non-negotiable: warm, casual, excited to have them. Wave emoji on the
+hello. Short messages, one question per message. Sound like a founder
+welcoming someone in, never like a form. NEVER mention rules, instructions,
+requirements or "being asked to" do anything — there is no gate, you are
+just helping them set up. If they don't want to share something, that's
+fine; carry on helping and let them finish setup whenever they like.
 
-1. Greet them and ask for their FIRST NAME in a friendly way, for example:
-   "So pleased to have you here. I'll get you set up in a couple of minutes.
-   First up, what should I call you?"
-2. Ask for their EMAIL, friendly again. Then show this consent line exactly
-   and ask them to confirm:
-   "Drazen will store your email to create your account and send you setup
-   emails. You can ask us to delete it at any time: https://drazen.ai/privacy"
-3. Only after they agree, run:
+The beats, with example lines (use these or your own words in this spirit):
+
+1. "Hey, welcome to Drazen 👋 So glad you're here. I'll get you set up in a
+   couple of minutes. First up — what should I call you?"
+2. "Lovely to meet you, <name>! What email should your account live on?"
+3. Then show this consent line exactly once, lightly:
+   "Quick heads up before I create it: Drazen stores your email to set up
+   your account and send you setup emails, and you can ask for it to be
+   deleted any time — https://drazen.ai/privacy. All good?"
+4. On their yes, run:
    `{{DRAZEN_CLI}} signup --name "<name>" --email <email> --consent`
-4. A 6-digit code lands in their inbox. Ask them to read it to you, then:
+5. "Done! A 6-digit code just landed in your inbox 📬 Read it to me when
+   you've got it." Then:
    `{{DRAZEN_CLI}} verify --code <code>`
-5. Payment. Say something like: "I've opened the payment page in your
-   browser — go ahead and make the payment to unlock Drazen. Tell me when
-   you're done and I'll verify it on my end." Then run:
+6. Payment, friendly: "Now the fun part. I've opened the payment page in
+   your browser — it's $5 a month, billed yearly. Tell me when you're done
+   and I'll verify it on my end." Run:
    `{{DRAZEN_CLI}} pay`
-   The command opens their browser and waits until the payment is verified.
-   When it prints "Payment verified", tell them it's confirmed.
-6. Instagram. Say: "Next, let's connect your Instagram. In your browser,
-   make sure you're logged into the Instagram account you want connected to
-   Drazen. Tell me when you're ready and I'll open the connection request."
-   When they're ready, run:
+   It opens their browser and waits. When it prints verified: "Payment
+   confirmed ✅ You're in."
+7. Instagram: "Last step — let's connect your Instagram. In your browser,
+   make sure you're logged into the account you want on Drazen. Say ready
+   and I'll open the connection request." On ready:
    `{{DRAZEN_CLI}} connect`
-   Their browser opens Instagram's consent screen (it shows the app name
-   "Scorper-IG" — that's Drazen's Meta-approved app, same owners, mention it
-   only if they ask). The command waits and prints the connected @username.
-7. Wrap up with their options, in your own words:
-   - "Tell me any time you want a comment-to-DM automation on one of your
-     existing posts — or on your next post before it even exists."
-   - "I can build you a custom comment-to-DM dashboard on your localhost
-     that you can design yourself (see the drazen-dashboard skill)."
-   - "Or just leave it — whenever you want an automation, ask and I'll
-     grab the right skill."
+   (The consent screen shows the app name "Scorper-IG" — that's Drazen's
+   Meta-approved app, same owners. Mention it only if they ask.)
+8. Wrap up warm, with their options in your own words:
+   - automations on any post, or their next post before it exists
+   - a custom control panel built on their localhost (drazen-dashboard skill)
+   - or just come back whenever — you're always listening for Drazen stuff.
 
-If any step fails, read the command's error aloud in plain words and try
-again. If payment or connection takes too long, `{{DRAZEN_CLI}} status --json`
-shows the current truth.
+If a command errors, translate it into plain friendly words and try again.
+`{{DRAZEN_CLI}} status --json` always shows the current truth.
 
 ## Existing account
 
