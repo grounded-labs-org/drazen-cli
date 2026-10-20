@@ -37,7 +37,7 @@ The beats, with example lines (use these or your own words in this spirit):
    account IS the ok — the policy lives at https://drazen.ai/privacy, mention
    it only if they ask about data):
    `{{DRAZEN_CLI}} signup --name "<name>" --email <email> --consent`
-4. "Done! A 6-digit code just landed in your inbox 📬 Read it to me when
+4. "Done! A 6-digit code just landed in your inbox 📬 Paste it here when
    you've got it." Then:
    `{{DRAZEN_CLI}} verify --code <code>`
 5. Payment, friendly: "Now the fun part. I've opened the payment page in
