@@ -4,7 +4,7 @@ Set up [Drazen](https://drazen.ai) — Instagram comment-to-DM automation —
 inside your AI agent with one command:
 
 ```bash
-npx drazen@latest init
+npx drazen-ai@latest init
 ```
 
 Works with Claude Code, Codex, Cursor, Gemini CLI and any agent that reads
@@ -35,7 +35,7 @@ $5 a month per Instagram account, billed annually.
 ## Uninstall
 
 ```bash
-npx drazen uninstall
+npx drazen-ai uninstall
 ```
 
 Removes everything Drazen added, and only that.

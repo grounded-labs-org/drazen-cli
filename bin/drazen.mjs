@@ -193,12 +193,12 @@ function cmdDoctor() {
   for (const a of agents) out(`${a.found ? '✓' : '✗'} ${a.name}`);
   const config = readConfig();
   out(`config: ${config.install_id ? 'present' : 'missing'} · signed in: ${config.token ? 'yes' : 'no'} · version ${packageVersion()}`);
-  out('If skills look stale, run: npx drazen@latest init');
+  out('If skills look stale, run: npx drazen-ai@latest init');
 }
 
 const HELP = `drazen ${packageVersion()} — Drazen inside your AI agent (${API_BASE})
 
-  npx drazen@latest init     install skills + hooks, start friendly setup
+  npx drazen-ai@latest init     install skills + hooks, start friendly setup
   drazen signup --name "Sam" --email sam@x.com --consent   email a 6-digit code
   drazen verify --code 123456                              finish sign-in
   drazen pay                 open checkout, wait + verify payment
@@ -206,7 +206,7 @@ const HELP = `drazen ${packageVersion()} — Drazen inside your AI agent (${API_
   drazen status [--json]     account, subscription, accounts, automations
   drazen tool [name] --args '{"...": "..."}'   run a Drazen action (list with no name)
   drazen doctor              check the install
-  npx drazen uninstall       remove everything Drazen added
+  npx drazen-ai uninstall       remove everything Drazen added
 
 Docs: https://drazen.ai/connect`;
 
