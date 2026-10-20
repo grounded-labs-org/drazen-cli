@@ -62,7 +62,11 @@ shows the current truth.
 - Automations: use the drazen-automations skill.
 - Custom dashboard: use the drazen-dashboard skill.
 - Each Instagram account is its own paid slot ($5/mo billed annually). To add
-  another account: `{{DRAZEN_CLI}} pay` then `{{DRAZEN_CLI}} connect`.
+  another account run `{{DRAZEN_CLI}} add-account` — it opens checkout, waits
+  for the payment, then opens the Instagram consent screen.
+- If more than one Instagram account is connected, confirm WHICH @username
+  the person means before creating or changing anything, and pass it in the
+  tool's account parameter.
 - Cancelling or billing questions: they manage it at https://app.drazen.ai
   (web login uses the same email; password via "forgot password").
 

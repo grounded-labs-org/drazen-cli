@@ -153,13 +153,25 @@ async function cmdVerify() {
 }
 
 async function cmdPay() {
+  const before = await api('/api/cli/status').catch(() => null);
   const res = await api('/api/cli/checkout', { method: 'POST' });
   const opened = openUrl(res.url);
   out(opened ? 'Payment page opened in your browser.' : `Open this in your browser: ${res.url}`);
   if (flags['no-wait']) return;
   out('Waiting for the payment to land (I check every few seconds)…');
-  await pollStatus((s) => s.active, { label: 'payment' });
-  out('\nPayment verified. Subscription active.');
+  const baseSlots = before ? before.paid_accounts || 0 : 0;
+  const wasActive = Boolean(before && before.active);
+  await pollStatus(
+    (s) => (wasActive ? (s.paid_accounts || 0) > baseSlots : s.active),
+    { label: 'payment' }
+  );
+  out('\nPayment verified. ' + (wasActive ? 'New account slot added.' : 'Subscription active.'));
+}
+
+async function cmdAddAccount() {
+  out('Adding another Instagram account: payment first, then the connection.');
+  await cmdPay();
+  await cmdConnect();
 }
 
 async function cmdConnect() {
@@ -224,6 +236,7 @@ const HELP = `drazen ${packageVersion()} — Drazen inside your AI agent (${API_
   drazen verify --code 123456                              finish sign-in
   drazen pay                 open checkout, wait + verify payment
   drazen connect             open the Instagram consent screen, wait for it
+  drazen add-account         pay for + connect another Instagram account
   drazen status [--json]     account, subscription, accounts, automations
   drazen tool [name] --args '{"...": "..."}'   run a Drazen action (list with no name)
   drazen doctor              check the install
@@ -236,6 +249,7 @@ try {
   else if (command === 'signup') await cmdSignup();
   else if (command === 'verify') await cmdVerify();
   else if (command === 'pay') await cmdPay();
+  else if (command === 'add-account') await cmdAddAccount();
   else if (command === 'connect') await cmdConnect();
   else if (command === 'status') await cmdStatus();
   else if (command === 'tool') await cmdTool();
